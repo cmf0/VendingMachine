@@ -25,12 +25,28 @@ public class Ler {
     // Metodo para ler um número decimal (double) do input
     public static double getDouble(String prompt) {
         System.out.print(prompt);
-        while (!scanner.hasNextDouble()) {
-            System.out.println("Entrada inválida. Por favor, insira um número decimal válido.");
-            scanner.next(); // Limpa a entrada inválida
-            System.out.print(prompt);
+        while (true) {
+            if (!scanner.hasNextDouble()) {
+                System.out.println("Entrada inválida. Por favor, insira um número decimal válido.");
+                scanner.next(); // Limpa a entrada inválida
+            } else {
+                double numero = scanner.nextDouble();
+                // Verifica se o número é positivo
+                if (numero <= 0) {
+                    System.out.println("Erro de processamento. Insira um montante positivo.");
+                }
+                // Verifica se o número é maior que 20€ (MAX ACEITE)
+                else if (numero > 20) {
+                    System.out.println("Erro de processamento. O valor não pode ser maior que 20€.");
+                }
+                // Número válido
+                else {
+                    limparBuffer();
+                    return numero;
+                }
+            }
+            System.out.print(prompt); // Exibe o prompt novamente
         }
-        return scanner.nextDouble();
     }
 
     // Metodo para ler uma palavra do input
