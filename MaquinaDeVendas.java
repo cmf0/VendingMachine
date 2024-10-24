@@ -45,20 +45,20 @@ public class MaquinaDeVendas implements Serializable{
         System.out.println("3 - Sair");
         int escolha = Ler.getInt("-> ");
         switch (escolha){
-        case 1: //OPCAO DE ENTRAR COMO CLIENTE E FAZER PEDIDOS
-            menuCompra();
-            break;
-        case 2: //OPCAO DE ENTRAR COMO COLABORADOR COM AUTENTICACAO
-            loginColaborador();
-            break;
-        case 3:
-            System.out.println("\nVOLTE SEMPRE!");
-            System.out.println(NOMEMAQUINA);
-            System.out.println("DESENVOLVIDO POR CLAUDIO FONTE & DIOGO SAMUEL");
-            System.out.println("@CITEFORMA2024");
-            System.exit(0); //FECHAR O PROGRAMA
+            case 1: //OPCAO DE ENTRAR COMO CLIENTE E FAZER PEDIDOS
+                menuCompra();
+                break;
+            case 2: //OPCAO DE ENTRAR COMO COLABORADOR COM AUTENTICACAO
+                loginColaborador();
+                break;
+            case 3:
+                System.out.println("\nVOLTE SEMPRE!");
+                System.out.println(NOMEMAQUINA);
+                System.out.println("DESENVOLVIDO POR CLAUDIO FONTE & DIOGO SAMUEL");
+                System.out.println("@CITEFORMA2024");
+                System.exit(0); //FECHAR O PROGRAMA
 
-        default:System.out.println("OPCAO INVALIDA!");
+            default:System.out.println("OPCAO INVALIDA!");
         }
     }
 
@@ -102,14 +102,14 @@ public class MaquinaDeVendas implements Serializable{
                         case 4:
                             if(saldo>0) System.out.println("\nA DEVOLVER " + df.format(saldo) + "€");
                             saldo=0;
-                            System.out.println("\nOBRIGADO POR UTILIZAR OS NOSSO SERVICOS!");
+                            System.out.println("\nOBRIGADO POR UTILIZAR OS NOSSOS SERVICOS!");
                             return;
                         default:
                             System.out.println("CATEGORIA INVALIDA!");
                     }
                 }while(true);
 
-            //VAI VOLTAR AO MENU ANTERIOR
+                //VAI VOLTAR AO MENU ANTERIOR
             case 2:
                 return;
             default:
@@ -227,7 +227,7 @@ public class MaquinaDeVendas implements Serializable{
         }
         //SE O HISTORICO TIVER INFORMACAO VAI LISTAR TODAS AS OCORRENCIAS E DAR OPCAO DE APAGAR
         for (String string : historico){
-           System.out.println(string);
+            System.out.println(string);
         }
 
         System.out.println("\nDESEJA APAGAR O HISTORICO? ( 1 - SIM | 2 - NAO )");
@@ -285,7 +285,7 @@ public class MaquinaDeVendas implements Serializable{
                 guardarStock();
                 return;
 
-            //SE NAO TIVER SALDO SUFICIENTE VAI PEDIR QUE INTRODUZA MAIS OU DAR OPCAO DE CANCELAR
+                //SE NAO TIVER SALDO SUFICIENTE VAI PEDIR QUE INTRODUZA MAIS OU DAR OPCAO DE CANCELAR
             }else {
                 System.out.println("\nSALDO INSUFICIENTE!");
                 System.out.println("FALTA " + (prod.get(escolha).preco - saldo) + "€");
