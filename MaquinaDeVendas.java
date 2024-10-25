@@ -15,11 +15,12 @@ public class MaquinaDeVendas implements Serializable{
     private final int MAXCHOC = 20; //CAPACIDADE MAXIMA DA MAQUINA PARA CHOCOLATES
     private final int MAXREFRI = 15; //CAPACIDADE MAXIMA DA MAQUINA PARA REFRIGERANTES
     private final int MAXSANDES = 10; //CAPACIDADE MAXIMA DA MAQUINA PARA SANDES
-    private final String NOMEMAQUINA = "\nLUNCHBREAK\u2122";
+    private final String NOMEMAQUINA = "\nLUNCHBREAK\u2122";  //NOME DA MAQUINA
     private final String PASSWORD = new String(Base64.getDecoder().decode("cXVlcm9lbnRyYXI=")); //PASSWORD ENCRIPTADA EM BASE64
-    private double saldo;
-    private double receita;
-    private DecimalFormat df = new DecimalFormat("0.00");
+    private final DecimalFormat df = new DecimalFormat("0.00"); //UTILIZADO PARA FORMATAR OS VALORES DOUBLE COM DUAS CASAS DECIMAIS
+    private double saldo;  //SALDO QUE O CLIENTE VAI INTRODUZIR NA MAQUINA
+    private double receita; //TOTAL DE DINHEIRO ACUMULADO PELAS VENDAS DA MAQUINA
+
 
     //LISTAS DE PRODUTOS E HISTORICO
     private ArrayList<String> historico = new ArrayList<>();
@@ -218,6 +219,7 @@ public class MaquinaDeVendas implements Serializable{
         }
     }
 
+    //IMPRIME UMA LISTA COM O HISTORICO DE TODOS OS PRODUTOS QUE FORAM COMPRADOS ASSIM COMO A DATA DA TRANSACAO E PRECO
     public void listarHistorico(){
 
         //VERIFICA SE O HISTORICO ESTÁ VAZIO E FECHA O METODO
@@ -257,7 +259,7 @@ public class MaquinaDeVendas implements Serializable{
         int escolha = Ler.getInt("Introduza o id do produto que deseja comprar: ");
 
         //VERIFICA SE A ESCOLHA COINCIDE COM UM PRODUTO EXISTENTE E FECHA O METODO EM CASO CONTRARIO
-        if (escolha > prod.size()) {
+        if (escolha > prod.size()|| escolha<=0) {
             System.out.println("PRODUTO NAO EXISTENTE");
             return;
         }
@@ -312,7 +314,7 @@ public class MaquinaDeVendas implements Serializable{
         escolha-=1;
 
         //VERIFICA SE A ESCOLHA COINCIDE COM UM PRODUTO EXISTENTE E FECHA O METODO EM CASO CONTRARIO
-        if (escolha > prod.size()) {
+        if (escolha > prod.size() || escolha<=0) {
             System.out.println("PRODUTO NAO EXISTENTE");
             return;
         }
@@ -351,7 +353,6 @@ public class MaquinaDeVendas implements Serializable{
     public void addSaldo(){
         saldo += Ler.getDouble("Introduza o montante: ");
     }
-
 
     //ESTE METODO VAI ADICIONAR UMA NOVA STRING AO HISTORICO COM A DATA E HORA DA TRANSACAO ASSIM COMO A MARCA E PRECO DO PRODUTO
     public void atualizarHistorico(Produto prod){
