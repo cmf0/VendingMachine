@@ -1,10 +1,17 @@
 package maquinavendas;
 
+import java.time.LocalDate;
+
 public class Sandes extends Produto{
 
     public Sandes(String marca, String tipo, double preco) {
         super(marca, tipo, preco);
         nome="Sandes";
+        setPrazoDeValidade();
+    }
+
+    public void setPrazoDeValidade(){
+        super.prazoDeValidade = LocalDate.now().plusDays(5);
     }
 
     public static Sandes newSandes() {

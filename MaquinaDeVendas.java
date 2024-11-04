@@ -290,7 +290,7 @@ public class MaquinaDeVendas implements Serializable{
                 //SE NAO TIVER SALDO SUFICIENTE VAI PEDIR QUE INTRODUZA MAIS OU DAR OPCAO DE CANCELAR
             }else {
                 System.out.println("\nSALDO INSUFICIENTE!");
-                System.out.println("FALTA " + (prod.get(escolha).preco - saldo) + "€");
+                System.out.println("FALTA " + (df.format(prod.get(escolha).preco - saldo)) + "€");
                 System.out.println("DESEJA INTRODUZIR MAIS SALDO? ( 1 - SIM | 2 - CANCELAR )");
                 if (Ler.getInt("->") == 1) addSaldo(); else {
                     System.out.println("COMPRA CANCELADA");
@@ -314,7 +314,7 @@ public class MaquinaDeVendas implements Serializable{
         escolha-=1;
 
         //VERIFICA SE A ESCOLHA COINCIDE COM UM PRODUTO EXISTENTE E FECHA O METODO EM CASO CONTRARIO
-        if (escolha > prod.size() || escolha<=0) {
+        if (escolha > prod.size() || escolha<0) {
             System.out.println("PRODUTO NAO EXISTENTE");
             return;
         }

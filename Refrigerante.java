@@ -1,10 +1,17 @@
 package maquinavendas;
 
+import java.time.LocalDate;
+
 public class Refrigerante extends Produto{
 
     public Refrigerante(String marca, String tipo, double preco) {
         super(marca, tipo, preco);
         nome = "Refrigerante";
+        setPrazoDeValidade();
+    }
+
+    public void setPrazoDeValidade(){
+        super.prazoDeValidade = LocalDate.now().plusDays(30);
     }
 
     public static Refrigerante newRefrigerante() {

@@ -10,7 +10,7 @@ public abstract class Produto implements Serializable {
         this.marca = marca;
         this.tipo = tipo;
         this.preco = preco;
-        prazoDeValidade = LocalDate.now().plusDays(10);
+
     }
 
     protected String nome;
@@ -56,9 +56,7 @@ public abstract class Produto implements Serializable {
         return prazoDeValidade.format(eu);
     }
 
-    public void setPrazoDeValidade(LocalDate prazoDeValidade) {
-        this.prazoDeValidade = prazoDeValidade;
-    }
+    public abstract void setPrazoDeValidade();
 
     public void mostrarPrazo(){
         System.out.println("Prazo de validade: " + prazoDeValidade);
