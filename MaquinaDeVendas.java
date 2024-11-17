@@ -137,13 +137,13 @@ public class MaquinaDeVendas implements Serializable{
                 case 1:
                     String s = Ler.getLine("Que produto deseja adicionar (Chocolate, Refrigerante, Sandes)? ");
                     if (s.toLowerCase().contains("choc")) {
-                        addChocolate();
+                        addProduto(TipoProduto.CHOCOLATE);
 
                     } else if (s.toLowerCase().contains("refr")) {
-                        addRefrigerante();
+                        addProduto(TipoProduto.REFRIGERANTE);
 
                     } else if (s.toLowerCase().contains("sand")) {
-                        addSandes();
+                        addProduto(TipoProduto.SANDES);
 
                     } else System.out.println("PRODUTO INCOMPATIVEL!");
                     break;
@@ -250,19 +250,37 @@ public class MaquinaDeVendas implements Serializable{
 
     //METODO ONDE A COMPRA E PROCESSADA
     public void comprarProduto(ArrayList<Produto> prod){
-
         //VERIFICA SE NAO EXISTE EM STOCK E FECHA O METODO
         if (prod.isEmpty()) return;
 
         //MOSTRA O SALDO COLOCADO PELO UTILIZADOR
         mostrarSaldo();
-        int escolha = Ler.getInt("Introduza o id do produto que deseja comprar: ");
 
-        //VERIFICA SE A ESCOLHA COINCIDE COM UM PRODUTO EXISTENTE E FECHA O METODO EM CASO CONTRARIO
-        if (escolha > prod.size()|| escolha<=0) {
-            System.out.println("PRODUTO NAO EXISTENTE");
+        int escolha;
+        String input = Ler.getLine("Introduza o id do produto que deseja comprar (C - PARA VOLTAR): ");
+
+        //VERIFICA SE O UTILIZADOR PRESSIONOU A TECLA PARA VOLTAR
+        if(input.equalsIgnoreCase("c")){
+            System.out.println("A RETROCEDER...");
             return;
         }
+        else{
+            //VAI TENTAR CONVERTER O INPUT PARA INTEIRO E RETROCEDER SE NÂO FOR POSSIVEL
+            try {
+                escolha = Integer.parseInt(input);
+
+                //VERIFICA SE A ESCOLHA COINCIDE COM UM PRODUTO EXISTENTE E FECHA O METODO EM CASO CONTRARIO
+                if (escolha > prod.size() || escolha<=0) {
+                    System.out.println("PRODUTO NAO EXISTENTE");
+                    return;
+                }
+            } catch (NumberFormatException e){
+                //SE O INPUT NÂO FOR UM NUMERO OU A LETRA C
+                System.out.println("VALOR INVALIDO, A RETROCEDER...");
+                return;
+            }
+        }
+
         //DECREMENTA O NUMERO QUE FOI INTRODUZIDO PARA COINCIDIR COM O FORMATO DO INDICE (0<=)
         escolha-=1;
 
@@ -329,25 +347,39 @@ public class MaquinaDeVendas implements Serializable{
 
     }
 
-    public void addChocolate(){
-        if (chocolates.size()<MAXCHOC){
-            chocolates.add(Chocolate.newChocolate());
-            guardarStock();
-        }else System.out.println("\nSTOCK DE CHOCOLATES CHEIO");
-    }
+    public void addProduto(TipoProduto tipo){
+        switch (tipo) {
+            case CHOCOLATE:
+                if (chocolates.size() < MAXCHOC) {
+                    chocolates.add(Chocolate.newChocolate());
+                    guardarStock();
+                } else {
+                    System.out.println("\nSTOCK DE CHOCOLATES CHEIO");
+                }
+                break;
 
-    public void addRefrigerante(){
-        if (refrigerantes.size()<MAXREFRI){
-            refrigerantes.add(Refrigerante.newRefrigerante());
-            guardarStock();
-        }else System.out.println("\nSTOCK DE REFRIGERANTES CHEIO");
-    }
+            case REFRIGERANTE:
+                if (refrigerantes.size() < MAXREFRI) {
+                    refrigerantes.add(Refrigerante.newRefrigerante());
+                    guardarStock();
+                } else {
+                    System.out.println("\nSTOCK DE REFRIGERANTES CHEIO");
+                }
+                break;
 
-    public void addSandes(){
-        if (sandes.size()<MAXSANDES){
-            sandes.add(Sandes.newSandes());
-            guardarStock();
-        }else System.out.println("\nSTOCK DE SANDES CHEIO");
+            case SANDES:
+                if (sandes.size() < MAXSANDES) {
+                    sandes.add(Sandes.newSandes());
+                    guardarStock();
+                } else {
+                    System.out.println("\nSTOCK DE SANDES CHEIO");
+                }
+                break;
+
+            default:
+                System.out.println("TIPO DE PRODUTO INVALIDO");
+                break;
+        }
     }
 
     public void addSaldo(){
