@@ -4,7 +4,7 @@ import java.util.Scanner;
 
 public class Ler {
     // Cria uma única instância de Scanner para toda a classe
-    private static Scanner scanner = new Scanner(System.in);
+    private static final Scanner scanner = new Scanner(System.in);
 
     // Construtor privado para evitar instanciar a classe
     private Ler() { }

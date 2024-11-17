@@ -15,7 +15,7 @@ public class MaquinaDeVendas implements Serializable{
     private final int MAXCHOC = 20; //CAPACIDADE MAXIMA DA MAQUINA PARA CHOCOLATES
     private final int MAXREFRI = 15; //CAPACIDADE MAXIMA DA MAQUINA PARA REFRIGERANTES
     private final int MAXSANDES = 10; //CAPACIDADE MAXIMA DA MAQUINA PARA SANDES
-    private final String NOMEMAQUINA = "\nLUNCHBREAK\u2122";  //NOME DA MAQUINA
+    private final String NOMEMAQUINA = "\nLUNCHBREAK™";  //NOME DA MAQUINA
     private final String PASSWORD = new String(Base64.getDecoder().decode("cXVlcm9lbnRyYXI=")); //PASSWORD ENCRIPTADA EM BASE64
     private final DecimalFormat df = new DecimalFormat("0.00"); //UTILIZADO PARA FORMATAR OS VALORES DOUBLE COM DUAS CASAS DECIMAIS
     private double saldo;  //SALDO QUE O CLIENTE VAI INTRODUZIR NA MAQUINA
@@ -131,11 +131,12 @@ public class MaquinaDeVendas implements Serializable{
             System.out.println("4 - Consultar historico");
             System.out.println("5 - Voltar");
             escolha = Ler.getInt("-> ");
+            String s;
             switch (escolha) {
 
                 //ADICIONAR PRODUTOS A MAQUINA
                 case 1:
-                    String s = Ler.getLine("Que produto deseja adicionar (Chocolate, Refrigerante, Sandes)? ");
+                    s = Ler.getLine("Que produto deseja adicionar (Chocolate, Refrigerante, Sandes)? ");
                     if (s.toLowerCase().contains("choc")) {
                         addProduto(TipoProduto.CHOCOLATE);
 
@@ -239,8 +240,7 @@ public class MaquinaDeVendas implements Serializable{
                 historico.clear();
                 System.out.println("HISTORICO APAGADO COM SUCESSO");
             }else System.out.println("A CANCELAR...");
-        }else return;
-
+        }
     }
 
     //IMPRIME A VARIAVEL SALDO DA MAQUINA EM FORMATO MONETARIO
@@ -395,7 +395,6 @@ public class MaquinaDeVendas implements Serializable{
 
     //ESTE METODO VAI GUARDAR O OBJETO DA MAQUINA DE VENDAS ASSIM COMO TODOS OS SEUS METODOS E ATRIBUTOS EM UM FILE
     public void guardarStock(){
-        File file = new File("stock.dat");
         try (FileOutputStream fileOut = new FileOutputStream("stock.dat");
              ObjectOutputStream objectOut = new ObjectOutputStream(fileOut)) {
 
@@ -424,6 +423,6 @@ public class MaquinaDeVendas implements Serializable{
             } catch (IOException | ClassNotFoundException e) {
                 e.printStackTrace();
             }
-        }else return;
+        }
     }
 }
