@@ -202,25 +202,6 @@ public class MaquinaDeVendas implements Serializable{
         System.out.println("ESGOTOU O NUMERO DE TENTATIVAS!");
     }
 
-    //RECEBE UMA LISTA DO TIPO PRODUTO E IRA IMPRIMIR TODOS OS PRODUTOS DA MESMA
-    public void listarProdutos(ArrayList<Produto> prod){
-        if (prod.isEmpty()){
-            System.out.println("\nSEM STOCK");
-        }else {
-            System.out.println("____________________");
-            System.out.println(prod.getFirst().getNome().toUpperCase());
-            System.out.println("____________________");
-            for (int i=0; i<prod.size();i++){
-                System.out.println("id: " + (i+1));
-                System.out.println("Marca: " + prod.get(i).getMarca());
-                System.out.println("Tipo: " + prod.get(i).getTipo());
-                System.out.println("Preco: " + prod.get(i).getPreco()+"€");
-                System.out.println("Prazo de validade: " + prod.get(i).getPrazoDeValidade());
-                System.out.println("____________________");
-            }
-        }
-    }
-
     //IMPRIME UMA LISTA COM O HISTORICO DE TODOS OS PRODUTOS QUE FORAM COMPRADOS ASSIM COMO A DATA DA TRANSACAO E PRECO
     public void listarHistorico(){
 
@@ -249,6 +230,56 @@ public class MaquinaDeVendas implements Serializable{
         System.out.println("\nSALDO: " + df.format(saldo) + "€");
     }
 
+    //RECEBE UMA LISTA DO TIPO PRODUTO E IRA IMPRIMIR TODOS OS PRODUTOS DA MESMA
+    public void listarProdutos(ArrayList<Produto> prod){
+        if (prod.isEmpty()){
+            System.out.println("\nSEM STOCK");
+        }else {
+            System.out.println("____________________");
+            System.out.println(prod.getFirst().getNome().toUpperCase());
+            System.out.println("____________________");
+            for (int i=0; i<prod.size();i++){
+                System.out.println("id: " + (i+1));
+                System.out.println("Marca: " + prod.get(i).getMarca());
+                System.out.println("Tipo: " + prod.get(i).getTipo());
+                System.out.println("Preco: " + prod.get(i).getPreco()+"€");
+                System.out.println("Prazo de validade: " + prod.get(i).getPrazoDeValidade());
+                System.out.println("____________________");
+            }
+        }
+    }
+
+    //VAI DAR A ESCOLHER AO UTILIZADOR QUAL O PRODUTO DESEJADO
+    public int selecionarProduto(){
+        int escolha;
+        String input = Ler.getLine("Introduza o id do produto que deseja retirar (C - PARA VOLTAR): ");
+
+        //VERIFICA SE O UTILIZADOR PRESSIONOU A TECLA PARA VOLTAR
+        if(input.equalsIgnoreCase("c")){
+            System.out.println("A RETROCEDER...");
+            return -1;
+        }
+        else{
+            //VAI TENTAR CONVERTER O INPUT PARA INTEIRO E RETROCEDER SE NÂO FOR POSSIVEL
+            try {
+                escolha = Integer.parseInt(input);
+            } catch (NumberFormatException e){
+                //SE O INPUT NÂO FOR UM NUMERO OU A LETRA C
+                System.out.println("VALOR INVALIDO, A RETROCEDER...");
+                return -1;
+            }
+        }
+        //DECREMENTA O NUMERO QUE FOI INTRODUZIDO PARA COINCIDIR COM O FORMATO DO INDICE (0<=)
+        escolha-=1;
+
+        if (escolha<0){
+            System.out.println("PRODUTO NAO EXISTENTE");
+            return -1;
+        }
+
+        return escolha;
+    }
+
     //METODO ONDE A COMPRA E PROCESSADA
     public void comprarProduto(ArrayList<Produto> prod){
         //VERIFICA SE NAO EXISTE EM STOCK E FECHA O METODO
@@ -257,33 +288,15 @@ public class MaquinaDeVendas implements Serializable{
         //MOSTRA O SALDO COLOCADO PELO UTILIZADOR
         mostrarSaldo();
 
-        int escolha;
-        String input = Ler.getLine("Introduza o id do produto que deseja comprar (C - PARA VOLTAR): ");
+        int escolha = selecionarProduto();
 
-        //VERIFICA SE O UTILIZADOR PRESSIONOU A TECLA PARA VOLTAR
-        if(input.equalsIgnoreCase("c")){
-            System.out.println("A RETROCEDER...");
+        if(escolha == -1) return;
+
+        //VERIFICA SE A ESCOLHA COINCIDE COM UM PRODUTO EXISTENTE E FECHA O METODO EM CASO CONTRARIO
+        if (escolha > prod.size()) {
+            System.out.println("PRODUTO NAO EXISTENTE");
             return;
         }
-        else{
-            //VAI TENTAR CONVERTER O INPUT PARA INTEIRO E RETROCEDER SE NÂO FOR POSSIVEL
-            try {
-                escolha = Integer.parseInt(input);
-
-                //VERIFICA SE A ESCOLHA COINCIDE COM UM PRODUTO EXISTENTE E FECHA O METODO EM CASO CONTRARIO
-                if (escolha > prod.size() || escolha<=0) {
-                    System.out.println("PRODUTO NAO EXISTENTE");
-                    return;
-                }
-            } catch (NumberFormatException e){
-                //SE O INPUT NÂO FOR UM NUMERO OU A LETRA C
-                System.out.println("VALOR INVALIDO, A RETROCEDER...");
-                return;
-            }
-        }
-
-        //DECREMENTA O NUMERO QUE FOI INTRODUZIDO PARA COINCIDIR COM O FORMATO DO INDICE (0<=)
-        escolha-=1;
 
         //PROCESSAMENTO DA COMPRA
         do {
@@ -327,13 +340,12 @@ public class MaquinaDeVendas implements Serializable{
         //VERIFICA SE NAO EXISTE EM STOCK E FECHA O METODO
         if (prod.isEmpty()) return;
 
-        int escolha = Ler.getInt("Introduza o id do produto que deseja retirar: ");
+        int escolha = selecionarProduto();
 
-        //DECREMENTA O NUMERO QUE FOI INTRODUZIDO PARA COINCIDIR COM O FORMATO DO INDICE (0<=)
-        escolha-=1;
+        if(escolha == -1) return;
 
         //VERIFICA SE A ESCOLHA COINCIDE COM UM PRODUTO EXISTENTE E FECHA O METODO EM CASO CONTRARIO
-        if (escolha > prod.size() || escolha<0) {
+        if (escolha > prod.size()) {
             System.out.println("PRODUTO NAO EXISTENTE");
             return;
         }
