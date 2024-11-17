@@ -10,6 +10,7 @@ public class Refrigerante extends Produto{
         setPrazoDeValidade();
     }
 
+    @Override
     public void setPrazoDeValidade(){
         super.prazoDeValidade = LocalDate.now().plusDays(30);
     }

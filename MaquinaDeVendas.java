@@ -9,6 +9,7 @@ import java.util.Base64;
 
 public class MaquinaDeVendas implements Serializable{
     //VERSAO DA SERIALIZACAO
+    @Serial
     private static final long serialVersionUID = 1L;
 
     //ATRIBUTOS

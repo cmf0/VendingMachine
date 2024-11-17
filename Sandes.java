@@ -10,6 +10,7 @@ public class Sandes extends Produto{
         setPrazoDeValidade();
     }
 
+    @Override
     public void setPrazoDeValidade(){
         super.prazoDeValidade = LocalDate.now().plusDays(5);
     }
