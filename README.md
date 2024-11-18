@@ -25,8 +25,8 @@ This project simulates a vending machine that manages sales of chocolates, soft 
     ```
 2. Compile and run the project using your preferred Java IDE or via the terminal:
     ```bash
-    javac MaquinaDeVendas.java
-    java MaquinaDeVendas
+    javac Main.java
+    java Main
     ```
 
 ## Usage
