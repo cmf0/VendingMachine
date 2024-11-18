@@ -252,7 +252,7 @@ public class MaquinaDeVendas implements Serializable{
     //VAI DAR A ESCOLHER AO UTILIZADOR QUAL O PRODUTO DESEJADO
     public int selecionarProduto(){
         int escolha;
-        String input = Ler.getLine("Introduza o id do produto que deseja retirar (C - PARA VOLTAR): ");
+        String input = Ler.getLine("Introduza o id do produto que deseja selecionar (C - PARA VOLTAR): ");
 
         //VERIFICA SE O UTILIZADOR PRESSIONOU A TECLA PARA VOLTAR
         if(input.equalsIgnoreCase("c")){
@@ -293,7 +293,7 @@ public class MaquinaDeVendas implements Serializable{
         if(escolha == -1) return;
 
         //VERIFICA SE A ESCOLHA COINCIDE COM UM PRODUTO EXISTENTE E FECHA O METODO EM CASO CONTRARIO
-        if (escolha > prod.size()) {
+        if (escolha >= prod.size()) {
             System.out.println("PRODUTO NAO EXISTENTE");
             return;
         }
@@ -345,7 +345,7 @@ public class MaquinaDeVendas implements Serializable{
         if(escolha == -1) return;
 
         //VERIFICA SE A ESCOLHA COINCIDE COM UM PRODUTO EXISTENTE E FECHA O METODO EM CASO CONTRARIO
-        if (escolha > prod.size()) {
+        if (escolha >= prod.size()) {
             System.out.println("PRODUTO NAO EXISTENTE");
             return;
         }
